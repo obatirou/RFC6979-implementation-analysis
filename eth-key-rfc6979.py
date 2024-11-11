@@ -1,6 +1,5 @@
 from eth_keys import keys
-from eth_keys.backends.native.ecdsa import ecdsa_raw_sign
-from eth_keys.backends.native.ecdsa import deterministic_generate_k, fast_multiply
+from eth_keys.backends.native.ecdsa import deterministic_generate_k, ecdsa_raw_sign, fast_multiply
 from eth_keys.constants import SECPK1_G as G, SECPK1_N as N
 from eth_keys.backends.native.jacobian import inv
 
