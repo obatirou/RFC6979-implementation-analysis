@@ -62,6 +62,8 @@ const test_vectors = [
 for (const test of test_vectors) {
   console.log("\nTest vector:", test);
   
+  // the message here is not reduced this leads to asking why the signature is different from other implementations
+  // It turns out in the nobles curves implementation the message is reduced mod curve order before this step
   const k = drbg(concatBytes(test.privateKey, test.message), (bytes) => {
       const num = bytesToNumberBE(bytes);
       if (num <= 0n || num >= CURVE.n) return;
