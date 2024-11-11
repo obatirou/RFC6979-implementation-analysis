@@ -11,7 +11,7 @@ It lead to investigate the noble-curves library and how foundry generates the si
 * eth-keys on commit [d8d1ecc6e159dd1dd7b12d7a203f8a276fa2a8ba](https://github.com/ethereum/eth-keys/tree/d8d1ecc6e159dd1dd7b12d7a203f8a276fa2a8ba)
 
 In [`weierstrass.ts from noble curves`](https://github.com/paulmillr/noble-curves/blob/e0ad0530f64d7cc01514b65d819b7f76db5f0da4/src/abstract/weierstrass.ts#L1052):
-```
+```ts
  const h1int = bits2int_modN(msgHash); // <- here is the reduction
  const d = normPrivateKeyToScalar(privateKey);
  const seedArgs = [int2octets(d), int2octets(h1int)]; // <-  passed to the seed for HMAC
@@ -33,7 +33,7 @@ Given the input message m, the following process is applied:
 
 For RustCrypto the message hash is used directly in the seed generation and not reduced:
 https://github.com/RustCrypto/signatures/blob/89232d6a962a199fd8211a117db74408353e4383/ecdsa/src/hazmat.rs#L103
-```
+```rust
 fn try_sign_prehashed_rfc6979<D>(
         &self,
         z: &FieldBytes<C>,
@@ -56,7 +56,7 @@ fn try_sign_prehashed_rfc6979<D>(
 ```
 The reduction is only performed after the k is generated:
 https://github.com/RustCrypto/signatures/blob/89232d6a962a199fd8211a117db74408353e4383/ecdsa/src/hazmat.rs#L239
-```
+```rust
 pub fn sign_prehashed<C, K>(
     d: &Scalar<C>,
     k: K,
@@ -90,9 +90,9 @@ After careful review of those test vectors, it was found they shared one similar
 
 Here are the 3 vectors:
 
-```
+```rust
 (
-    hex!("0000000000000000000000000000000000000000000000000000000000000001"), // PK
+    hex!("0000000000000000000000000000000000000000000000000000000000000001"), // privateKey
     hex!("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"), // msgHash
 ),
 (
