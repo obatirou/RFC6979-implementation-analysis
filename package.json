@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@noble/curves": "^1.6.0"
+  }
+}
