@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
-    "@noble/curves": "^1.6.0"
+    "@noble/curves": "^1.6.0",
+    "ts-node": "^10.9.2"
   }
 }

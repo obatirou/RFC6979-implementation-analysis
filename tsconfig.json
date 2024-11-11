@@ -2,6 +2,7 @@
   "compilerOptions": {
     "module": "ESNext",
     "moduleResolution": "node",
+    "sourceMap": true,
     "target": "ESNext",
     "esModuleInterop": true
   }

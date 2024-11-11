@@ -75,8 +75,13 @@ for (const test of test_vectors) {
   const R = Point.BASE.multiply(k);
   console.log('Rx:', R.toAffine().x.toString(16));
   
-  
   const signature = secp256k1.sign(test.message, test.privateKey);
   console.log('r:', signature.r.toString(16));
   console.log('s:', signature.s.toString(16));
 }
+
+// issue is the message is greater than the curve order
+// in rust crypto the message is converted to field element
+// K is computed with this value 
+// but message hash is reduced after only when doing the ecdsa algorithm
+// In noble curves the message is reduced before the ecdsa algorithm
