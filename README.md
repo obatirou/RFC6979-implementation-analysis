@@ -86,7 +86,7 @@ where
 }
 ```
 
-After careful review of those test vectors, it was found they shared one similarity: the message hash was greater or equal to the `secp256k1` curve order `0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141`
+After careful review of the test vectors that were leading different signature depending on the library used, it was found they shared one similarity: the message hash was greater or equal to the `secp256k1` curve order `0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141`
 
 Here are the 3 vectors:
 
@@ -123,7 +123,7 @@ One thing is certain, libraries need to be aware of this issue and implement a f
 *Note:  
 it seems RustCrypto is now doing the reduction before the k generation.
 https://github.com/RustCrypto/signatures/blob/8f93676ea0fcefe3787b805a9b35afa722b7a5c6/ecdsa/src/hazmat.rs#L192  
-This was introduced by this PR https://github.com/RustCrypto/signatures/pull/793
+This was introduced by this PR https://github.com/RustCrypto/signatures/pull/793  
 This is not release yet at commit 8f93676ea0fcefe3787b805a9b35afa722b7a5c6*
 
 # POC
@@ -144,3 +144,11 @@ Requirements
 * `Python 3.10.11`
 * `node v18.16.1`
 * `uv 0.4.7 (a178051e8 2024-09-07)`
+
+Debug:
+* in vscode, the `launch.json` file can be used to debug the `noble-curves.ts` showing the reduction of the message hash before the k generation.
+
+To fix the difference you can change the following line [`weierstrass.ts from noble curves`](https://github.com/paulmillr/noble-curves/blob/e0ad0530f64d7cc01514b65d819b7f76db5f0da4/src/abstract/weierstrass.ts#L1052)
+```ts
+ const seedArgs = [int2octets(d), msgHash]; // <-  msgHash is passed directly now
+```
