@@ -15,8 +15,12 @@ fn main() {
             hex!("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"),
         ),
         (
-            hex!("c0c77d7b7c24cf4ee08d8c368a3b0bcc3ac17c949b6a8455287cbe065cfc088c"),
-            hex!("9811ebd6296e6078940504347735f04ae42da831f793cd83cb031980543c5ad1"),
+            hex!("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140"),
+            hex!("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"),
+        ),
+        (
+            hex!("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140"),
+            hex!("fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"),
         ),
     ];
 

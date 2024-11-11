@@ -16,13 +16,47 @@ const drbg = createHmacDrbg(
 
 const test_vectors = [
   {
-      privateKey: new Uint8Array(Buffer.from("0000000000000000000000000000000000000000000000000000000000000001", "hex")),
-      message: new Uint8Array(Buffer.from("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "hex"))
+    privateKey: new Uint8Array(
+      Buffer.from(
+        "0000000000000000000000000000000000000000000000000000000000000001",
+        "hex"
+      )
+    ),
+    message: new Uint8Array(
+      Buffer.from(
+        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "hex"
+      )
+    ),
   },
   {
-      privateKey: new Uint8Array(Buffer.from("c0c77d7b7c24cf4ee08d8c368a3b0bcc3ac17c949b6a8455287cbe065cfc088c", "hex")),
-      message: new Uint8Array(Buffer.from("9811ebd6296e6078940504347735f04ae42da831f793cd83cb031980543c5ad1", "hex"))
-  }
+    privateKey: new Uint8Array(
+      Buffer.from(
+        "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140",
+        "hex"
+      )
+    ),
+    message: new Uint8Array(
+      Buffer.from(
+        "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "hex"
+      )
+    ),
+  },
+  {
+    privateKey: new Uint8Array(
+      Buffer.from(
+        "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140",
+        "hex"
+      )
+    ),
+    message: new Uint8Array(
+      Buffer.from(
+        "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141",
+        "hex"
+      )
+    ),
+  },
 ];
 
 for (const test of test_vectors) {

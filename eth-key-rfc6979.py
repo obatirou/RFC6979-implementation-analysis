@@ -22,8 +22,12 @@ test_vectors = [
         "message": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     },
     {
-        "private_key": "c0c77d7b7c24cf4ee08d8c368a3b0bcc3ac17c949b6a8455287cbe065cfc088c",
-        "message": "9811ebd6296e6078940504347735f04ae42da831f793cd83cb031980543c5ad1",
+        "private_key": "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140",
+        "message": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    },
+    {
+        "private_key": "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140",
+        "message": "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141",
     },
 ]
 
