@@ -154,3 +154,4 @@ To fix the difference you can change the following line [`weierstrass.ts from no
 ```ts
  const seedArgs = [int2octets(d), msgHash]; // <-  msgHash is passed directly now
 ```
+Note that this breaks several tests from noble curves outside of the secp256k1.
