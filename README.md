@@ -128,7 +128,8 @@ This was introduced by this PR https://github.com/RustCrypto/signatures/pull/793
 This is not release yet at commit 8f93676ea0fcefe3787b805a9b35afa722b7a5c6*
 
 # POC
-The difference of signatures between nobles curves and RustCrypto/Eth-key can be replicated by running the following commands:  
+Scripts were written to compare the generation of K and values that are needed for the signature but also the sig'atures themselves.
+Those scripts showing the difference of signatures between nobles curves and RustCrypto/Eth-key can be replicated by running the following commands:  
 
 Install packages:
 * `npm install`
