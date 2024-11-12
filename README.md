@@ -68,7 +68,7 @@ fn try_sign_prehashed_rfc6979<D>(
         self.try_sign_prehashed::<Self>(k, z)
     }
 ```
-The reduction is only performed after the k is generated:
+The reduction is only performed after the k is generated:  
 https://github.com/RustCrypto/signatures/blob/89232d6a962a199fd8211a117db74408353e4383/ecdsa/src/hazmat.rs#L239
 ```rust
 pub fn sign_prehashed<C, K>(
@@ -98,6 +98,37 @@ where
 
     Ok((signature, recovery_id))
 }
+```
+
+For `eth-keys` the message hash is also reduced after the nonce generation:  
+https://github.com/ethereum/eth-keys/blob/d8d1ecc6e159dd1dd7b12d7a203f8a276fa2a8ba/eth_keys/backends/native/ecdsa.py#L124
+```python
+def ecdsa_raw_sign(msg_hash: bytes, private_key_bytes: bytes) -> Tuple[int, int, int]:
+    z = big_endian_to_int(msg_hash)
+    k = deterministic_generate_k(msg_hash, private_key_bytes) # <- here the msgHash is used directly
+
+    ...
+
+def deterministic_generate_k(
+    msg_hash: bytes,
+    private_key_bytes: bytes,
+    digest_fn: Callable[[], Any] = hashlib.sha256,
+) -> int:
+    v_0 = b"\x01" * 32
+    k_0 = b"\x00" * 32
+
+    k_1 = hmac.new(
+        k_0, v_0 + b"\x00" + private_key_bytes + msg_hash, digest_fn
+    ).digest()
+    v_1 = hmac.new(k_1, v_0, digest_fn).digest()
+    k_2 = hmac.new(
+        k_1, v_1 + b"\x01" + private_key_bytes + msg_hash, digest_fn
+    ).digest()
+    v_2 = hmac.new(k_2, v_1, digest_fn).digest()
+
+    kb = hmac.new(k_2, v_2, digest_fn).digest()
+    k = big_endian_to_int(kb)
+    return k
 ```
 
 After careful review of the test vectors that were leading different signature depending on the library used, it was found they shared one similarity: the message hash was greater or equal to the `secp256k1` curve order `0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141`
