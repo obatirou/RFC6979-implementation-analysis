@@ -125,7 +125,7 @@ One thing is certain, libraries need to be aware of this issue and implement a f
 it seems RustCrypto is now doing the reduction before the k generation.
 https://github.com/RustCrypto/signatures/blob/8f93676ea0fcefe3787b805a9b35afa722b7a5c6/ecdsa/src/hazmat.rs#L192  
 This was introduced by this PR https://github.com/RustCrypto/signatures/pull/793  
-This is not release yet at commit 8f93676ea0fcefe3787b805a9b35afa722b7a5c6*
+This is not release yet in master at commit 8f93676ea0fcefe3787b805a9b35afa722b7a5c6*
 
 # POC
 Scripts were written to compare the generation of K and values that are needed for the signature but also the signatures themselves.
