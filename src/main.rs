@@ -32,14 +32,14 @@ fn main() {
 
         let k =
             generate_k::<Sha256, U32>(&private_key.into(), &modulus.into(), &message.into(), b"");
-        println!("k: {}", hex::encode(&k));
+        println!("k: {}", hex::encode(k));
 
-        let k = Scalar::from_repr(k.into()).unwrap();
+        let k = Scalar::from_repr(k).unwrap();
         let k_inv = k.invert();
         println!("k_inv: {}", hex::encode(k_inv.unwrap().to_repr()));
 
         let big_r = ProjectivePoint::mul_by_generator(&k).to_affine();
-        println!("Rx: {}", hex::encode(&big_r.x()));
+        println!("Rx: {}", hex::encode(big_r.x()));
 
         let d = NonZeroScalar::from_repr(private_key.into()).unwrap();
         let (signature, _) = sign_prehashed::<Secp256k1, Scalar>(&d, k, &message.into()).unwrap();
