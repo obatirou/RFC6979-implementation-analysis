@@ -11,7 +11,7 @@
 **TLDR**:
 This repository investigates differences in RFC6979 implementations across different cryptographic libraries, specifically focusing on how message hash reduction affects deterministic signature generation.
 Key findings show that `noble-curves` performs modular reduction of the message hash before generating the deterministic nonce k, while `RustCrypto` and `eth-keys` perform this reduction after nonce generation. This leads to different signatures when the message hash is equal to or greater than the curve order.
-The cause is that the message hash is an input to the HMAC function for the generation of k. The reduction have an influence on the input hence the results of the generation.
+The cause is that the message hash is an input to the HMAC function for the generation of k. The reduction has an influence on the input hence on the results of the generation.
 
 ## Investigation Details
 This issue was found following this https://github.com/verklegarden/crysol/issues/23#issuecomment-2451687926:  
