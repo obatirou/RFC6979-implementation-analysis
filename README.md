@@ -232,4 +232,4 @@ This led to creating issues on the repositories of libraries that were concerned
 
 `RustCrypto` already implemented the fix on master (see note in the previous section) BUT did not release it yet.
 `Foundry` is still using the tag ecdsa/0.16.9 which is concerned by the issue.
-In the end there is no security risks. Only thing is that the signature is not really deterministic (for some special cases).
+In the end there are no security risks. Only thing is that the signature is not really deterministic (for some special cases).
