@@ -223,10 +223,6 @@ By looking into the definition of `bits2octets`, it is clear that the message ha
        q-1, inclusive):
 
           z2 = z1 mod q
-
-       Note that since z1 is less than 2^qlen, that modular reduction
-       can be implemented with a simple conditional subtraction:
-       z2 = z1-q if that value is non-negative; otherwise, z2 = z1.
 ```
 This is exactly what `noble-curves` is doing. So `RustCrypto` and `Eth-key` are in fact missing this step and are not strictly following the RFC.
 This led to creating issues on the repositories of libraries that were concerned about this issue.
