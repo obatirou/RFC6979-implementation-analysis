@@ -229,7 +229,7 @@ By looking into the definition of `bits2octets`, it is clear that the message ha
        z2 = z1-q if that value is non-negative; otherwise, z2 = z1.
 ```
 This is exactly what `noble-curves` is doing. So `RustCrypto` and `Eth-key` are in fact missing this step and are not strictly following the RFC.
-This lead to creating issues on the repositories of libraries that were concerned about this issue.
+This led to creating issues on the repositories of libraries that were concerned about this issue.
 * https://github.com/indutny/elliptic/issues/328
 * https://github.com/RustCrypto/elliptic-curves/issues/1100
 * https://github.com/ethereum/eth-keys/issues/101
