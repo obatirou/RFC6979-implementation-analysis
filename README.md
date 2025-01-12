@@ -196,15 +196,15 @@ To fix the difference you can change the following line [`weierstrass.ts from no
 Note that this breaks several tests from noble curves outside of the `secp256k1` tests.
 
 ## Conclusion
-After contacting [SEAL911](https://github.com/security-alliance/seal-911), @pcaversaccio responded in under 5min. Discussing with @paulmillr, he raised a point I overlooked:
-the input of the HMAC function is the message hash but passing through the `bits2octets` function.
+After contacting [SEAL911](https://github.com/security-alliance/seal-911), @pcaversaccio responded in under 5min. Discussing with @paulmillr, he raised a point I overlooked: the input of the HMAC function is the message hash but passing through the `bits2octets`function.
 
-```
-          K = HMAC_K(V || 0x01 || int2octets(x) || bits2octets(h1))
+```jsx
+     K = HMAC_K(V || 0x01 || int2octets(x) || ***bits2octets***(h1))
 ```
 
-By looking into the definition of `bits2octets`, it is clear that the message hash needs to be reduced *before* the `k` generation.
-```
+By looking into the definition of `bits2octets`, it is clear that the message hash needs to be reduced **before** the `k` generation.
+
+```jsx
 2.3.4.  Bit String to Octet String
 
    The bits2octets transform takes as input a sequence of blen bits and
@@ -220,12 +220,12 @@ By looking into the definition of `bits2octets`, it is clear that the message ha
 
           z2 = z1 mod q
 ```
-This is exactly what `noble-curves` is doing. So `RustCrypto` and `eth-key` are in fact missing this step and are not strictly following the RFC.
-This led to creating issues on the repositories of libraries that were concerned about this issue.
-* https://github.com/indutny/elliptic/issues/328
-* https://github.com/RustCrypto/elliptic-curves/issues/1100
-* https://github.com/ethereum/eth-keys/issues/101
 
-`RustCrypto` already implemented the fix on master (see note in the previous section) BUT did not release it yet.
-`foundry` is still using the tag `ecdsa/0.16.9` which is concerned by the issue.
-In the end there are no security risks. Only thing is that the signature is not really deterministic (for some special cases).
+This is exactly what `noble-curves` does. In fact, it is `RustCrypto` and `eth-key` that are missing this step, deviating from the RFC specs. This led to creating issues on repositories of libraries affected by this finding.
+
+- [indutny/elliptic/issues/328](https://github.com/indutny/elliptic/issues/328)
+- [RustCrypto/elliptic-curves/issues/1100](https://github.com/RustCrypto/elliptic-curves/issues/1100)
+- [eth-keys/issues/101](https://github.com/ethereum/eth-keys/issues/101)
+
+`RustCrypto` has already implemented the fix on the [master branch](https://github.com/RustCrypto/signatures/pull/777/files) but has not yet release it. `foundry` [is still using](https://github.com/foundry-rs/foundry/blob/4923529c743f25a0f37503a7bcf7c68caa6901f1/Cargo.lock#L2909) the tag `ecdsa/0.16.9` which is affected by the issue. A [tracking issue](https://github.com/foundry-rs/foundry/issues/9499) was created.
+Although it is not a security vulnerability in the sense of forgeable signature or the like, the issue remains that the signature is not deterministic in all cases.
