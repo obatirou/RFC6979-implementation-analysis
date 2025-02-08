@@ -1,3 +1,5 @@
+*For the full writeup: [From a failling test to calling SEAL911](https://blog.electisec.tech/blogs/2025-01-14-from-failing-test-to-calling-911)*
+
 # Table of Contents
 1. [RFC6979 implementation analysis](#rfc6979-implementation-analysis)
 2. [Investigation Details](#investigation-details)  
